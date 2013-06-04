@@ -5,3 +5,5 @@
 /robots.txt RobotsR GET
 
 / HomeR GET POST
+/lines LinesR GET
+/lines/add LineAddR POST

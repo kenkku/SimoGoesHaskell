@@ -20,6 +20,8 @@ library
                      Settings.StaticFiles
                      Settings.Development
                      Handler.Home
+                     Handler.Lines
+                     Handler.LineAdd
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -50,6 +52,8 @@ library
                  , yesod-form                    >= 1.3        && < 1.4
                  , bytestring                    >= 0.9        && < 0.11
                  , text                          >= 0.11       && < 0.12
+                 , time
+                 , old-locale
                  , persistent                    >= 1.2        && < 1.3
                  , persistent-sqlite             >= 1.2        && < 1.3
                  , persistent-template           >= 1.2        && < 1.3
