@@ -15,6 +15,7 @@ library
     exposed-modules: Application
                      Foundation
                      Import
+                     Model
                      Settings
                      Settings.StaticFiles
                      Settings.Development
@@ -49,6 +50,9 @@ library
                  , yesod-form                    >= 1.3        && < 1.4
                  , bytestring                    >= 0.9        && < 0.11
                  , text                          >= 0.11       && < 0.12
+                 , persistent                    >= 1.2        && < 1.3
+                 , persistent-sqlite             >= 1.2        && < 1.3
+                 , persistent-template           >= 1.2        && < 1.3
                  , template-haskell
                  , hamlet                        >= 1.1        && < 1.2
                  , shakespeare-css               >= 1.0        && < 1.1
@@ -90,4 +94,9 @@ test-suite test
                  , yesod-test >= 1.2 && < 1.3
                  , yesod-core
                  , yesod
+                 , persistent
+                 , persistent-sqlite
+                 , resourcet
+                 , monad-logger
+                 , transformers
                  , hspec

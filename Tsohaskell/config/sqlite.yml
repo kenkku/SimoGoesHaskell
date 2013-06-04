@@ -1,0 +1,20 @@
+Default: &defaults
+  database: Tsohaskell.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: Tsohaskell_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: Tsohaskell_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: Tsohaskell_production.sqlite3
+  poolsize: 100
+  <<: *defaults
