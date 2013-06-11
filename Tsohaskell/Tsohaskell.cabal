@@ -73,6 +73,7 @@ library
                  , aeson
                  , conduit                       >= 1.0
                  , monad-logger                  >= 0.3
+                 , http-types
                  , fast-logger                   >= 0.3
 
 executable         Tsohaskell
