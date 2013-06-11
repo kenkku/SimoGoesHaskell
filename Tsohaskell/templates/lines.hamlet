@@ -1,0 +1,3 @@
+<ul>
+    $forall line <- values
+        <li>#{lineNick (entityVal line)} #{lineMessage (entityVal line)}
