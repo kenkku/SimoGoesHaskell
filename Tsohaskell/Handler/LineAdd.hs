@@ -1,19 +1,17 @@
 module Handler.LineAdd where
 
 import Import
-import Data.Aeson.TH
-import Data.Time
+import Data.Aeson.TH (deriveFromJSON)
+import Data.Aeson.Types
+import Data.Char (toLower)
 
-data Message = Message 
-			{ message :: Text
-			, nick :: Text
-			, time :: UTCTime
-			}
+$(deriveFromJSON (drop 4 . map toLower) ''Line)
 
-$(deriveFromJSON id ''Message)
-
-postLineAddR :: Handler ()
+postLineAddR :: Handler RepPlain
 postLineAddR = do 
-	value <- parseJsonBody_
-	runDB $ insert_ $ Line (message value) (nick value) (time value)
-
+	value <- parseJsonBody
+	_ <- case value of
+		Error s -> sendResponse s
+		Success val -> runDB $ insert (val :: Line)
+	sendResponse ()
+	
