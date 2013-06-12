@@ -1,15 +1,17 @@
-{-# LANGUAGE ScopedTypeVariables, QuasiQuotes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 module Handler.Lines where
 
 import Import
-import Network.HTTP.Types (status200)
+import Database.Persist.Sql (Single, rawSql, unSingle)
 
 
 
-
-getLinesR :: Handler RepHtml
+getLinesR :: Handler Html
 getLinesR = do 
-    values :: [Entity Line] <- (runDB $ selectList [] []) 
+    values <- selectLinecounts
     defaultLayout $(widgetFile "lines")
+  where
+  	selectLinecounts :: Handler [(Single String, Single Int)]
+  	selectLinecounts = runDB $ rawSql "SELECT nick, COUNT(*) FROM line GROUP BY nick" []
 
