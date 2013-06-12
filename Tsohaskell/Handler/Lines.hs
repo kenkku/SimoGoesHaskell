@@ -13,5 +13,5 @@ getLinesR = do
     defaultLayout $(widgetFile "lines")
   where
   	selectLinecounts :: Handler [(Single String, Single Int)]
-  	selectLinecounts = runDB $ rawSql "SELECT nick, COUNT(*) FROM line GROUP BY nick" []
+  	selectLinecounts = runDB $ rawSql "SELECT nick, COUNT(*) FROM line GROUP BY nick ORDER BY 2 DESC" []
 
