@@ -7,6 +7,8 @@ import Data.Time.LocalTime
 import System.Locale
 import Data.Time.Clock
 
+import Data.Time.Calendar
+
 main = do
         [s] <- getArgs
         fileContents <- readFile s
@@ -24,9 +26,13 @@ main = do
 
         --print $ head messages
 
-        let juttuja = zip days messages
+        let daysMessagesTuple = zip days messages
 
-        print $ juttuja
+        --print $ daysMessagesTuple
+
+        let penis = fst $ head daysMessagesTuple
+
+        print penis
 
         return ()
         
