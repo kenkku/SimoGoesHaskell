@@ -45,7 +45,7 @@ parseDay day
 parseDayChanged dayChanged =
     let splitDayChanged = splitPlaces [11,50] $ drop 16 dayChanged
         dayChangedUTC = (head splitDayChanged) ++ "00:00:00 UTC " ++ (last splitDayChanged)
-    in parseTime defaultTimeLocale "%c" dayChangedUTC :: Maybe UTCTime
+    in readTime defaultTimeLocale "%c" dayChangedUTC :: UTCTime
 
-parseLogOpened logOpened = parseTime defaultTimeLocale "%c" (drop 15 logOpened) :: Maybe UTCTime
+parseLogOpened logOpened = readTime defaultTimeLocale "%c" (drop 15 logOpened) :: UTCTime
 
