@@ -125,7 +125,7 @@ getTime (x:y:':':z:w:_) = (x:y:':':z:w:"")  ++ ":00"
 getTime _ = "aids"
 
 isMessageOrDayChanged :: String -> Bool
-isMessageOrDayChanged (x:y:':':z:w:space:lessThan:_) = True
+isMessageOrDayChanged (x:y:':':z:w:' ':'<':_) = True
 isMessageOrDayChanged x = isDayChange x
 --isMessageOrDayChanged ('-':'-':'-':' ':'D':'a':'y':_) = True
 --isMessageOrDayChanged ('-':'-':'-':' ':'L':'o':'g':' ':'o':'p':__)= True
