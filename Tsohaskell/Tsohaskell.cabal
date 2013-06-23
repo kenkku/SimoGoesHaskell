@@ -22,6 +22,7 @@ library
                      Handler.Home
                      Handler.Lines
                      Handler.LineAdd
+                     Handler.GraphLines
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
