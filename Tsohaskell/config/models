@@ -8,7 +8,7 @@ Email
     user UserId Maybe
     verkey Text Maybe
     UniqueEmail email
-Line
+Line json
 	message Text
 	nick Text
 	time UTCTime
