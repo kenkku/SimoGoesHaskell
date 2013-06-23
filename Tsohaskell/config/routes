@@ -7,3 +7,4 @@
 / HomeR GET POST
 /lines LinesR GET
 /lines/add LineAddR POST
+/graphlines GraphLinesR GET

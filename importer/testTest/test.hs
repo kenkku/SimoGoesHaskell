@@ -28,8 +28,6 @@ main = do
         --messages. (f.ex nick changes and joins etc)
         let messages = filter isMessageOrDayChanged linesInFile
 
-        --print $ messagesInLines 
-
         let messagesSplit = tail $ splitWhen (isDayChange) $ messages
 
         --print $ head messagesSplit
@@ -51,6 +49,22 @@ main = do
         mapM_ postDay daysTimesNicksMessagesQuad
 
         return ()
+
+addNick :: (a,[String],[String]) -> (a,[String],[String],[String])
+addNick triple =
+    let nicks = map getNick (third triple)
+        messages = map cleanMessages (third triple)
+    in (first triple, second triple, nicks, messages)
+
+getNick :: String -> String
+getNick msg = takeWhile (/='>') (drop 8 msg)
+
+
+cleanMessages :: String -> String
+--don't change lines that are not messages
+cleanMessages ('-':'-':'-':xs) = "---" ++ xs
+--drop everything before >, and then drop the > and the space after it
+cleanMessages msg = drop 2 (dropWhile (/='>') (msg))
 
 postDay :: (UTCTime, [String], [String], [String]) -> IO () 
 postDay quad = 
@@ -84,15 +98,6 @@ addTimeOfDay :: (a,[String]) -> (a,[String],[String])
 addTimeOfDay tuple =
     let times = map getTime (snd tuple)
     in (fst tuple, times, snd tuple)
-
-
-addNick :: (a,[String],[String]) -> (a,[String],[String],[String])
-addNick triple =
-    let nicks = map getNick (third triple)
-    in (first triple, second triple, nicks, third triple)
-
-getNick :: String -> String
-getNick msg = takeWhile (/='>') (drop 8 msg)
 
 
 first :: (a, b, c) -> a  
