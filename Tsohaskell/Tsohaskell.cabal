@@ -75,6 +75,7 @@ library
                  , monad-logger                  >= 0.3
                  , http-types
                  , fast-logger                   >= 0.3
+                 , regex-tdfa
 
 executable         Tsohaskell
     if flag(library-only)
