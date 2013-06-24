@@ -24,6 +24,7 @@ library
                      Handler.LineAdd
                      Handler.GraphLines
                      Handler.Links
+                     Handler.GraphActivity
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
