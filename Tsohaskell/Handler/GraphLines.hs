@@ -15,7 +15,7 @@ getGraphLinesR = do
     let nicksLines = createTuple (length dates) nicks
     let dbResults = map unSingleValues values
 
-    let placeholder = addActualLineCounts nicksLines dbResults dates
+    let chartData = addActualLineCounts nicksLines dbResults dates
 
     defaultLayout $(widgetFile "graphlines")
     where
@@ -24,7 +24,7 @@ getGraphLinesR = do
 
 
 
-linexyGraph2 = 
+linexyGraph2 chartData = 
     getChartUrl $ do setChartSize 800 300
                      setChartType Graphics.GChart.Line
                      setDataEncoding text
@@ -32,6 +32,7 @@ linexyGraph2 =
                         
                      addChartData dataSeries3
 
+                     --map addChartData (snd chartData)
 
                      setColors ["00FFFF",
                                 "0000FF",
