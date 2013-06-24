@@ -126,11 +126,11 @@ fourthq (_, _, _, w) = w
 
 
 getTime :: String -> String
-getTime (x:y:':':z:w:_) = (x:y:':':z:w:"")  ++ ":00"
+getTime (x:y:z:w:q:e:'<':_) = (x:y:':':z:w:':':q:e:"")
 getTime _ = "aids"
 
 isMessageOrDayChanged :: String -> Bool
-isMessageOrDayChanged (x:y:':':z:w:' ':'<':_) = True
+isMessageOrDayChanged (x:y:z:w:q:e:'<':_) = True
 isMessageOrDayChanged x = isDayChange x
 --isMessageOrDayChanged ('-':'-':'-':' ':'D':'a':'y':_) = True
 --isMessageOrDayChanged ('-':'-':'-':' ':'L':'o':'g':' ':'o':'p':__)= True

@@ -9,13 +9,17 @@ import Data.Maybe
 getGraphLinesR :: Handler Html
 getGraphLinesR = do
     values <- messages
-    let graph = linexyGraph2
     let dates = nub $ map unSingle $ first $ unzip3 values
     let nicks = nub $ map unSingle $ second $ unzip3 values
+    let countsMax = maximum $ map unSingle $ third $ unzip3 values
+    let countsMaxFloat = fromIntegral countsMax :: Float
     let nicksLines = createTuple (length dates) nicks
     let dbResults = map unSingleValues values
 
     let chartData = addActualLineCounts nicksLines dbResults dates
+
+    let graph = linexyGraph2 chartData countsMaxFloat dates
+
 
     defaultLayout $(widgetFile "graphlines")
     where
@@ -24,29 +28,45 @@ getGraphLinesR = do
 
 
 
-linexyGraph2 chartData = 
+linexyGraph2 chartData countsMaxFloat dates = 
     getChartUrl $ do setChartSize 800 300
                      setChartType Graphics.GChart.Line
                      setDataEncoding text
                      setChartTitle "Lines per day"
                         
-                     addChartData dataSeries3
+                     let penis = unzip chartData
 
-                     --map addChartData (snd chartData)
+                     let nicks = fst penis
+
+                     let sinep = map (map fromIntegral) (snd penis) :: [[Float]]
+
+                     let multiplier = 100 / countsMaxFloat
+
+                     let scaledData = map (map (* multiplier)) sinep
+                
+                     setGrid $ makeGrid { xAxisStep = 3.333,
+                                            yAxisStep = 10,
+                                            lineSegmentLength = Just 1,
+                                            blankSegmentLength = Just 3 }
+                     --
+
+                     addAxis $ makeAxis { axisType = AxisLeft,
+                                          
+                                         axisRange = Just $ Range (0, countsMaxFloat) (Just 100) }
+
+                     addAxis $ makeAxis { axisType = AxisBottom,
+                                         axisLabels = Just $ dates }
+
+                     
+                     --addChartData $ head scaledData
+                     mapM_ addChartData scaledData
 
                      setColors ["00FFFF",
                                 "0000FF",
                                 "009933",
                                 "CC3300" ]
 
-                     setLegend $ legendWithPosition ["Kekki"] LegendRight
-
-
-dataSeries3 :: [(Float)]
-dataSeries3 = [30,45,20,50,15,27,270]
-
-
-
+                     setLegend $ legendWithPosition nicks LegendRight
 
 createTuple :: Int -> [String] -> [(String, [Int])]
 createTuple dayCount nicks = zip nicks $ replicate (length nicks) $ replicate dayCount 0

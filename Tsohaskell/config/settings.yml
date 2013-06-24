@@ -1,7 +1,7 @@
 Default: &defaults
   host: "*4" # any IPv4 host
   port: 3000
-  approot: "http://85.17.207.80:3000"
+  approot: "http://datisbox.net:3000"
   copyright: Immah copyright statement
   #analytics: UA-YOURCODE
 
