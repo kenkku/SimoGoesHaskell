@@ -1,1 +1,1 @@
-Hello: Hello
+Hello: Tein itse ja säästin
