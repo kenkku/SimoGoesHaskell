@@ -1,3 +1,4 @@
 <h1>_{MsgHello}
 ^{linesWidget}
 ^{linksWidget 5}
+^{graphLinesWidget}

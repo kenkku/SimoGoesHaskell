@@ -1,3 +1,4 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 module Handler.GraphLines where
 
 import Import
@@ -7,8 +8,11 @@ import Data.List
 import Data.Maybe
 
 getGraphLinesR :: Handler Html
-getGraphLinesR = do
-    values <- messages
+getGraphLinesR = defaultLayout graphLinesWidget
+
+graphLinesWidget :: Widget
+graphLinesWidget = do
+    values :: [(Single String, Single String, Single Int)] <- handlerToWidget messages
     let dates = nub $ map unSingle $ first $ unzip3 values
     let nicks = nub $ map unSingle $ second $ unzip3 values
     let countsMax = maximum $ map unSingle $ third $ unzip3 values
@@ -21,9 +25,8 @@ getGraphLinesR = do
     let graph = linexyGraph2 chartData countsMaxFloat dates
 
 
-    defaultLayout $(widgetFile "graphlines")
+    $(widgetFile "graphlines")
     where
-        messages :: Handler [(Single String, Single String, Single Int)]
         messages = runDB $ rawSql "SELECT date(substr(time, 0, length(time) - 3)), nick, count(*) as linecount FROM line GROUP BY nick, date(substr(time, 0, length(time) - 3)) ORDER BY date(substr(time, 0, length(time) - 3)) ASC, linecount DESC" []
 
 
