@@ -8,3 +8,4 @@
 /lines LinesR GET
 /lines/add LineAddR POST
 /graphlines GraphLinesR GET
+/links LinksR GET

@@ -23,6 +23,7 @@ library
                      Handler.Lines
                      Handler.LineAdd
                      Handler.GraphLines
+                     Handler.Links
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -77,6 +78,8 @@ library
                  , http-types
                  , fast-logger                   >= 0.3
                  , regex-tdfa
+                 , esqueleto
+                 , yesod-links
 
 executable         Tsohaskell
     if flag(library-only)
