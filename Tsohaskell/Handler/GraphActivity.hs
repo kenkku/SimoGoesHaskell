@@ -2,8 +2,6 @@
 module Handler.GraphActivity where
 
 import Import
-import Data.Time.Calendar
-import Data.Time.Clock
 import Database.Persist.Sql (rawSql, Single, unSingle)
 
 getGraphActivityR :: Handler Html
