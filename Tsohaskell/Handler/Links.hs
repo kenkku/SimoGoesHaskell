@@ -13,7 +13,7 @@ linksWidget :: Int64 -> Widget
 linksWidget num = do
     linkEntities :: [(Entity Link, Entity Line)] <- handlerToWidget $ runDB $ 
         select $
-        from $ \(link, line) -> do
+        from $ \(link, line) -> do
             where_ (link ^. LinkLine Database.Esqueleto.==. line ^. LineId)
             orderBy [desc (line ^. LineTime)]
             limit num
