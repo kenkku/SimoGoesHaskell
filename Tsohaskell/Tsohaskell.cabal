@@ -55,6 +55,7 @@ library
                  , text                          >= 0.11       && < 0.12
                  , time
                  , old-locale
+                 , hs-gchart
                  , persistent                    >= 1.2        && < 1.3
                  , persistent-sqlite             >= 1.2        && < 1.3
                  , persistent-template           >= 1.2        && < 1.3
@@ -102,6 +103,7 @@ test-suite test
                  , yesod
                  , persistent
                  , persistent-sqlite
+                 , hs-gchart 
                  , resourcet
                  , monad-logger
                  , transformers

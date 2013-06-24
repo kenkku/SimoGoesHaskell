@@ -1,3 +1,0 @@
-<ul>
-    $forall line <- values
-        <li>#{unSingle $ first line} #{unSingle $ second line} #{unSingle $ third line}
