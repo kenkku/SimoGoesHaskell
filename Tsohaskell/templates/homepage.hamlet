@@ -2,4 +2,9 @@
 ^{linesWidget}
 ^{linksWidget 5}
 ^{graphLinesWidget}
+<p>
+<p>
+<p>
+<h3> Total lines per day
+<p>
 ^{graphActivityWidget}

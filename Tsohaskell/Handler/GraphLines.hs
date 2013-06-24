@@ -27,8 +27,10 @@ graphLinesWidget = do
 
     $(widgetFile "graphlines")
     where
-        messages = runDB $ rawSql "SELECT date(substr(time, 0, length(time) - 3)), nick, count(*) as linecount FROM line GROUP BY nick, date(substr(time, 0, length(time) - 3)) ORDER BY date(substr(time, 0, length(time) - 3)) ASC, linecount DESC" []
+        messages = runDB $ rawSql "SELECT date(substr(time, 0, length(time) - 3)) as day, nick, count(*) as linecount FROM line WHERE time > (SELECT DATETIME('now', '-14 day')) GROUP BY nick, day ORDER BY day ASC, linecount DESC" []
 
+each :: Int -> [a] -> [a]
+each n = map head . takeWhile (not . null) . iterate (drop n)
 
 
 linexyGraph2 chartData countsMaxFloat dates = 
@@ -39,13 +41,19 @@ linexyGraph2 chartData countsMaxFloat dates =
                         
                      let penis = unzip chartData
 
-                     let nicks = fst penis
+                     --let datesFifth = each 5 dates
+
+                     let days = map (reverse . (take 2) . reverse) dates
+
+                     --let nicks = fst penis
+                     let nicks = take 5 $ fst penis
 
                      let sinep = map (map fromIntegral) (snd penis) :: [[Float]]
 
                      let multiplier = 100 / countsMaxFloat
 
-                     let scaledData = map (map (* multiplier)) sinep
+                     --let scaledData = map (map (* multiplier)) sinep
+                     let scaledData = take 5 $ map (map (* multiplier)) sinep
                 
                      setGrid $ makeGrid { xAxisStep = 3.333,
                                             yAxisStep = 10,
@@ -58,16 +66,28 @@ linexyGraph2 chartData countsMaxFloat dates =
                                          axisRange = Just $ Range (0, countsMaxFloat) (Just 100) }
 
                      addAxis $ makeAxis { axisType = AxisBottom,
-                                         axisLabels = Just $ dates }
+                                         axisLabels = Just $ days}
 
                      
                      --addChartData $ head scaledData
                      mapM_ addChartData scaledData
-
-                     setColors ["00FFFF",
+                    
+                    {--
+                     setColors ["FF0000",
                                 "0000FF",
                                 "009933",
-                                "CC3300" ]
+                                "000066",
+                                "FFCC00" ]
+                        --}
+                     setColors ["006699",
+                                "0000FF",
+                                "CC00FF",
+                                "FF66CC",
+                                "FF6600",
+                                "CCFF33",
+                                "009900",
+                                "669999",
+                                "663300"]
 
                      setLegend $ legendWithPosition nicks LegendRight
 
