@@ -4,6 +4,7 @@ module Handler.Home where
 import Import
 import Handler.Lines (linesWidget)
 import Handler.Links (linksWidget)
+import Handler.GraphActivity (graphActivityWidget)
 import Handler.GraphLines (graphLinesWidget)
 
 -- This is a handler function for the GET request method on the HomeR
